@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: auth-depl
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: auth
+  template:
+    metadata:
+      labels:
+        app: auth
+    spec:
+      containers:
+        - name: auth
+          image: gremjua/auth
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: auth-srv
+spec:   # default type is ClusterIP
+  selector:
+    app: auth
+  ports:
+    - name: auth
+      protocol: TCP
+      port: 4001  # port I want the k8s service to expose, so if I call localhost:4001 then it will redirect to the pod's port 5000
+      targetPort: 5000

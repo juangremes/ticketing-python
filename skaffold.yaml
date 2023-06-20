@@ -1,0 +1,18 @@
+apiVersion: skaffold/v2alpha3
+kind: Config
+deploy:
+  kubectl:
+    manifests:
+      - ./infra/k8s/*
+build:
+  local:
+    push: false # do not push on every build of image, do not push to docker hub (default behavior)
+  artifacts:
+    - image: gremjua/auth
+      context: auth # contains all code for this image
+      docker:
+        dockerfile: Dockerfile # which docker file to build image
+      sync: # tell skaffold how to sync with changes in that context
+        manual:
+          - src: 'auth/**/*.py'
+            dest: . # where to sync inside the running container
