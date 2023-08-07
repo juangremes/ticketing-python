@@ -8,5 +8,10 @@ app = Flask(__name__)
 
 
 @app.get('/')
-def comments_get():
+def auth_get():
     return "Hello from auth!\n", 200
+
+
+@app.get('/api/users/currentuser')
+def current_user_get():
+    return "Hi there, this is a test!", 200
