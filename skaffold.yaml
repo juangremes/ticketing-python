@@ -5,10 +5,12 @@ deploy:
     manifests:
       - ./infra/k8s/*
 build:
-  local:
-    push: false # do not push on every build of image, do not push to docker hub (default behavior)
+#  local:
+#    push: false # do not push on every build of image, do not push to docker hub (default behavior)
+  googleCloudBuild:
+    projectId: ticketing-dev-395215 # id of my project in google cloud
   artifacts:
-    - image: gremjua/auth
+    - image: us.gcr.io/ticketing-dev-395215/auth  # image names in google cloud always start like that
       context: auth # contains all code for this image
       docker:
         dockerfile: Dockerfile # which docker file to build image

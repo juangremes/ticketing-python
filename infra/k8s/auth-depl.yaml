@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: auth
-          image: gremjua/auth
+          image: us.gcr.io/ticketing-dev-395215/auth  # name of image in google cloud, always starts the same way
 ---
 apiVersion: v1
 kind: Service
