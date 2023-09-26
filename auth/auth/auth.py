@@ -1,17 +1,11 @@
 # TODO: add auth Flask app code, see if we need CORS
 #  add wsgi.py or gunicorn_conf.py with config
 #  add entrypoint.sh calling gunicorn (Dockerfile entrypoint)
-from flask import Flask
+#  OR add all that config inside the entrypoint.sh directly: gunicorn app:app -w 2 --threads 2 -b 0.0.0.0:8000
+from . import create_app
 
 
-app = Flask(__name__)
+app = create_app()
+if __name__ == "__main__":
+    app.run(host='0.0.0.0')
 
-
-@app.get('/')
-def auth_get():
-    return "Hello from auth!\n", 200
-
-
-@app.get('/api/users/currentuser')
-def current_user_get():
-    return "Hi there, this is a test!", 200
